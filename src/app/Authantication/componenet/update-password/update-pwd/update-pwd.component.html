@@ -1,0 +1,19 @@
+<div class="password-edit-container">
+    <h2>Edit Password</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="oldPassword">Old Password</label>
+        <input type="password" id="oldPassword" [(ngModel)]="editPasswordRequest.oldPassword" name="oldPassword" required>
+      </div>
+      <div class="form-group">
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" [(ngModel)]="editPasswordRequest.newPassword" name="newPassword" required>
+      </div>
+      <div class="form-group">
+        <label for="retypedNewPassword">Confirm New Password</label>
+        <input type="password" id="retypedNewPassword" [(ngModel)]="editPasswordRequest.retypedNewPassword" name="retypedNewPassword" required>
+      </div>
+      <button type="submit" class="submit-btn">Update Password</button>
+    </form>
+  </div>
+  

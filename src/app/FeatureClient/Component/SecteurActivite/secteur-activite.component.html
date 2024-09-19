@@ -1,0 +1,38 @@
+<div class="secteur-container">
+  <div class="secteur-header">
+    <h2>{{ 'SECTEUR_HEADER' | translate }}</h2>
+  </div>
+
+  <!-- Add New Secteur Form -->
+  <div class="secteur-form">
+    <h3>{{ 'ADD_NEW_SECTEUR' | translate }}</h3>
+    <form (ngSubmit)="createSecteur()">
+      <div class="form-group">
+        <input [(ngModel)]="newSecteur.nomSectActivite" name="nomSectActivite" [placeholder]="'ENTER_SECTEUR_NAME' | translate" required />
+      </div>
+      <button class="submit-btn" type="submit">{{ 'ADD' | translate }}</button>
+    </form>
+  </div>
+
+  <!-- List of Secteurs -->
+  <ul class="secteur-list">
+    <li *ngFor="let secteur of secteurs">
+      <span>{{ secteur.nomSectActivite }}</span>
+      <div class="button-group">
+        <button class="edit-btn" (click)="getSecteurById(secteur.idSectActivite!)">{{ 'EDIT' | translate }}</button>
+        <button class="delete-btn" (click)="deleteSecteur(secteur.idSectActivite!)">{{ 'DELETE' | translate }}</button>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Edit Secteur Form -->
+  <div class="secteur-form" *ngIf="selectedSecteur">
+    <h3>{{ 'EDIT_SECTEUR' | translate }}</h3>
+    <form (ngSubmit)="updateSecteur()">
+      <div class="form-group">
+        <input [(ngModel)]="selectedSecteur.nomSectActivite" name="nomSectActivite" [placeholder]="'EDIT_SECTEUR_NAME' | translate" required />
+      </div>
+      <button class="submit-btn" type="submit">{{ 'UPDATE' | translate }}</button>
+    </form>
+  </div>
+</div>

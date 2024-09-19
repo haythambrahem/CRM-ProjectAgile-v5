@@ -1,0 +1,237 @@
+<!-- Navigation Bar-->
+<header id="topnav">
+    <div class="topbar-main">
+      <div class="container">
+        <!-- LOGO -->
+        <div class="topbar-left">
+          <a href="home" class="logo">
+            <img src="assets\images\AgilEnergy_petit.png"  class="icon-c-logo" />
+            <span>SNDP AGIL Energy</span>
+          </a>
+        </div>
+        <!-- End Logo container-->
+
+        <div class="menu-extras navbar-topbar">
+          <ul class="list-inline float-right mb-0">
+            <li class="list-inline-item">
+              <!-- Mobile menu toggle-->
+              <a class="navbar-toggle">
+                <div class="lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </a>
+              <!-- End mobile menu toggle-->
+            </li>
+
+            <li class="list-inline-item dropdown notification-list" *ngIf="!isLoggedIn">
+              <a
+                class="nav-link dropdown-toggle arrow-none waves-light waves-effect"
+                data-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="false"
+                aria-expanded="false"
+              >
+                <i class="zmdi zmdi-account-circle noti-icon"></i>
+                <span class="noti-icon-badge"></span>
+              </a>
+              <div
+              class="dropdown-menu dropdown-menu-right dropdown-arrow dropdown-lg"
+              aria-labelledby="Preview"
+              
+            >
+              <!-- Sign In -->
+              <ng-container >
+                <a href="signin" class="dropdown-item notify-item">
+                  <div class="notify-icon bg-primary">
+                    <i class="zmdi zmdi-sign-in"></i>
+                  </div>
+                  <p class="notify-details">
+                    {{ 'SIGN_IN' | translate }}<small class="text-muted">{{ 'ACCESS_ACCOUNT' | translate }}</small>
+                  </p>
+                </a>
+              </ng-container>
+                    
+              <!-- Sign Up -->
+              <!-- <a href="add" class="dropdown-item notify-item" *ngIf="user.role == 'ROLE_ADMIN'">
+                <div class="notify-icon bg-secondary">
+                  <i class="zmdi zmdi-account-add"></i>
+                </div>
+                <p class="notify-details" *ngIf="isLoggedIn">
+                  add a new user<small class="text-muted">Create a new account</small>
+                </p>
+              </a> -->
+          
+            </div>
+            </li>
+
+            <li class="list-inline-item dropdown notification-list" >
+              <a
+                class="nav-link dropdown-toggle arrow-none waves-light waves-effect"
+                href="chat"
+                role="button"
+                aria-haspopup="false"
+                aria-expanded="false"
+              >
+                <i class="zmdi zmdi-email noti-icon"></i>
+                <span class="noti-icon-badge"></span>
+              </a>
+              
+            </li>
+
+            
+
+            <li class="list-inline-item dropdown notification-list">
+              <a
+                class="nav-link dropdown-toggle waves-effect waves-light nav-user"
+                data-toggle="dropdown"
+                href="#"
+                role="button"
+                aria-haspopup="false"
+                aria-expanded="false"
+              >
+                <img
+                  src="assets/images/users/avatar-1.jpg"
+                  alt="user"
+                  class="rounded-circle"
+                />
+              </a>
+              <div
+                class="dropdown-menu dropdown-menu-right profile-dropdown"
+                aria-labelledby="Preview"
+              >
+                <!-- item-->
+                <div class="dropdown-item noti-title">
+                  <h5 class="text-overflow"><small>{{ 'WELCOME' | translate }}</small></h5>
+                </div>
+
+                <!-- item-->
+                <a href="profile" class="dropdown-item notify-item">
+                  <i class="zmdi zmdi-account-circle"></i> <span>{{ 'PROFILE' | translate }}</span>
+                </a>
+
+                <!-- item-->
+                <a
+                  href="secteurActivite"
+                  class="dropdown-item notify-item"
+                  *ngIf="user.role == 'ROLE_ADMIN'|| user.role == 'ROLE_ADMIN_COM'"
+                >
+                  <i class="zmdi zmdi-settings"></i> <span>{{ 'ADD_SECTOR' | translate }}</span>
+                </a>
+                <!-- item-->
+                <a
+                  href="add"
+                  class="dropdown-item notify-item"
+                  *ngIf="user.role == 'ROLE_ADMIN' || user.role == 'ROLE_ADMIN_COM'"
+                >
+                  <i class="zmdi ion-person-add"></i> <span>{{ 'ADD_USER' | translate }}</span>
+                </a>
+
+                <!-- item-->
+                <!-- <a
+                  href="javascript:void(0);"
+                  class="dropdown-item notify-item"
+                >
+                  <i class="zmdi zmdi-lock-open"></i> <span>Lock Screen</span>
+                </a> -->
+
+                <!-- item-->
+                <a
+                  class="dropdown-item notify-item"
+                  (click)="logout()"
+                >
+                  <i class="zmdi zmdi-power"></i> <span>{{ 'LOGOUT' | translate }}</span>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- end menu-extras -->
+        <div class="clearfix"></div>
+      </div>
+      <!-- end container -->
+    </div>
+    <!-- end topbar-main -->
+
+    <div class="navbar-custom">
+      <div class="container">
+        <div id="navigation">
+          <!-- Navigation Menu-->
+          <ul class="navigation-menu" *ngIf="user !== null">
+              <li class="has_sub">
+                  <a href="clients" class="waves-effect"
+                    ><span class="badge badge-pill badge-primary float-right"
+                      ></span
+                    ><i class="zmdi  zmdi-account-box"></i
+                    ><span> {{ 'CLIENT_MANAGEMENT' | translate }} </span>
+                  </a>
+                </li>
+                <li class="has_sub">
+                  <a href="prospects" class="waves-effect"
+                    ><i class="zmdi  zmdi-local-parking"></i><span> {{ 'PROSPECTS' | translate }} </span>
+                  </a>
+                </li>
+                <li class="has_sub">
+                  <a href="produit" class="waves-effect"
+                    ><i class="zmdi  zmdi-local-parking"></i><span> {{ 'PRODUCTS' | translate }} </span>
+                  </a>
+                </li>
+                <li class="has_sub">
+                  <a href="emballage" class="waves-effect"
+                    ><i class="zmdi  zmdi-storage"></i><span> {{ 'PACKAGING' | translate }} </span>
+                  </a>
+                </li>
+                <li class="has_sub">
+                  <a href="devis" class="waves-effect"
+                    ><i class="zmdi  zmdi-balance-wallet"></i><span> {{ 'QUOTES' | translate }} </span>
+                  </a>
+                </li>
+
+                
+          </ul>
+          <div class="language-container">
+            <button class="language-button english" (click)="switchLanguage('en')">English</button>
+            <button class="language-button french" (click)="switchLanguage('fr')">Français</button>
+          </div>
+          
+        
+          <!-- End navigation menu  -->
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- End Navigation Bar-->
+
+  <!-- <div class="side-bar right-bar">
+    <div class="nicescroll">
+      <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">
+          <a
+            href="#messages-2"
+            class="nav-link"
+            data-toggle="tab"
+            aria-expanded="true"
+          >
+            Settings
+          </a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        
+
+        <div class="tab-pane fade" id="messages-2">
+            <div class="">
+              <a href="secteurActivite" class="">
+              <h5 class="m-0">Secteur d'Activite</h5>
+              <p class="text-muted m-b-0">
+                <small>Add a new secteur</small>
+              </p>
+              </a>
+            </div>
+         </div>
+      </div>
+    </div>
+  </div> -->

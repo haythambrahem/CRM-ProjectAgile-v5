@@ -1,0 +1,250 @@
+<div class="form-container">
+    <h2>Client Details</h2>
+    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
+        <div class="form-content">
+            <!-- Existing Form Sections -->
+            <div class="form-main">
+                <section class="form-section">
+                      <div class="container">
+                        <label for="fileType">Choose a file type:</label>
+                        <select #fileType id="fileType">
+                          <option value="PDF">PDF</option>
+                          <option value="XLSX">XLSX</option>
+                          <option value="CSV">CSV</option>
+                          <option value="HTML">HTML</option>
+                          <option value="XML">XML</option>
+                          <option value="DOC">DOC</option>
+                        </select>
+                      
+                        <button (click)="clientId !== undefined ? downloadReport(clientId, fileType.value) : null">
+                          Download Report
+                        </button>
+                      </div>
+                      
+                      
+                    <h3>Personal Information</h3>
+                    <!-- Client Name -->
+                    <div class="form-group">
+                        <label for="nomClient">Client Name:</label>
+                        <input type="text" id="nomClient" formControlName="nomClient" required>
+                    </div>
+                    
+                    <!-- Account Number -->
+                    <div class="form-group">
+                        <label for="numeroCompte">Account Number:</label>
+                        <input type="text" id="numeroCompte" formControlName="numeroCompte" required>
+                    </div>
+
+                    <!-- Sub-Account Number -->
+                    <div class="form-group">
+                        <label for="numeroSousCompte">Sub-Account Number:</label>
+                        <input type="text" id="numeroSousCompte" formControlName="numeroSousCompte" required>
+                    </div>
+
+                    <!-- Tax ID -->
+                    <div class="form-group">
+                        <label for="matriculeFiscal">Tax ID:</label>
+                        <input type="text" id="matriculeFiscal" formControlName="matriculeFiscal" required>
+                    </div>
+                </section>
+
+                <section class="form-section">
+                    <h3>Client Details</h3>
+                    <!-- Revenue -->
+                    <div class="form-group">
+                        <label for="chiffreAffaires">Revenue:</label>
+                        <input type="number" id="chiffreAffaires" formControlName="chiffreAffaires">
+                    </div>
+
+                    <!-- Workforce -->
+                    <div class="form-group">
+                        <label for="effectif">Workforce:</label>
+                        <input type="number" id="effectif" formControlName="effectif">
+                    </div>
+
+                    <!-- Exempt Status -->
+                    <div class="form-group">
+                        <label for="exonere">Exempt:</label>
+                        <input type="checkbox" id="exonere" formControlName="exonere">
+                    </div>
+
+                    <!-- Exemption Deadline -->
+                    <div class="form-group">
+                        <label for="dateLimiteExoneration">Exemption Deadline:</label>
+                        <input type="date" id="dateLimiteExoneration" formControlName="dateLimiteExoneration">
+                    </div>
+                </section>
+
+                <!-- Address Information -->
+                <section class="form-section">
+                    <h3>Address Information</h3>
+                    <!-- Billing Mode -->
+                    <div class="form-group">
+                        <label for="modeFacturation">Billing Mode:</label>
+                        <select id="modeFacturation" formControlName="modeFacturation" required>
+                            <option *ngFor="let mode of modeFacturations" [value]="mode">{{ mode }}</option>
+                        </select>
+                    </div>
+
+                    <!-- Payment Condition -->
+                    <div class="form-group">
+                        <label for="conditionPaiement">Payment Condition:</label>
+                        <select id="conditionPaiement" formControlName="conditionPaiement" required>
+                            <option *ngFor="let condition of conditions" [value]="condition">{{ condition }}</option>
+                        </select>
+                    </div>
+
+                    <!-- Blockage -->
+                    <div class="form-group">
+                        <label for="blocage">Blockage:</label>
+                        <select id="blocage" formControlName="blocage" required>
+                            <option *ngFor="let blocage of blocages" [value]="blocage">{{ blocage }}</option>
+                        </select>
+                    </div>
+
+                    <!-- Purchase Price -->
+                    <div class="form-group">
+                        <label for="prixAchats">Purchase Price:</label>
+                        <input type="text" id="prixAchats" formControlName="prixAchats">
+                    </div>
+
+                    <!-- Governorate -->
+                    <div class="form-group">
+                        <label for="gouvernorat">Governorate:</label>
+                        <select id="gouvernorat" formControlName="gouvernorat" required>
+                            <option *ngFor="let gouvernorat of gouvernorats" [value]="gouvernorat">{{ gouvernorat }}</option>
+                        </select>
+                    </div>
+
+                    <!-- Locality -->
+                    <div class="form-group">
+                        <label for="localite">Locality:</label>
+                        <select id="localite" formControlName="localite" required>
+                            <option *ngFor="let localite of localites" [value]="localite">{{ localite }}</option>
+                        </select>
+                    </div>
+
+                    <!-- Geographic Zone -->
+                    <div class="form-group">
+                        <label for="zoneGeographique">Geographic Zone:</label>
+                        <select id="zoneGeographique" formControlName="zoneGeographique" required>
+                            <option *ngFor="let zone of zones" [value]="zone">{{ zone }}</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- Contact Information -->
+                <section class="form-section">
+                    <h3>Contact Information</h3>
+                    <!-- Mobile -->
+                    <div class="form-group">
+                        <label for="mobile">Mobile:</label>
+                        <input type="text" id="mobile" formControlName="mobile">
+                    </div>
+
+                    <!-- Phone -->
+                    <div class="form-group">
+                        <label for="telephone">Phone:</label>
+                        <input type="text" id="telephone" formControlName="telephone">
+                    </div>
+
+                    <!-- Other Phone -->
+                    <div class="form-group">
+                        <label for="autreTelephone">Other Phone:</label>
+                        <input type="text" id="autreTelephone" formControlName="autreTelephone">
+                    </div>
+
+                    <!-- Fax -->
+                    <div class="form-group">
+                        <label for="fax">Fax:</label>
+                        <input type="text" id="fax" formControlName="fax">
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" formControlName="email" required>
+                    </div>
+
+                    <!-- Other Email -->
+                    <div class="form-group">
+                        <label for="autreEmail">Other Email:</label>
+                        <input type="email" id="autreEmail" formControlName="autreEmail">
+                    </div>
+
+                    <!-- Website -->
+                    <div class="form-group">
+                        <label for="siteWeb">Website:</label>
+                        <input type="text" id="siteWeb" formControlName="siteWeb">
+                    </div>
+
+                    <!-- Street -->
+                    <div class="form-group">
+                        <label for="rue">Street:</label>
+                        <input type="text" id="rue" formControlName="rue">
+                    </div>
+
+                    <!-- Postal Code -->
+                    <div class="form-group">
+                        <label for="codePostal">Postal Code:</label>
+                        <input type="text" id="codePostal" formControlName="codePostal">
+                    </div>
+
+                    <!-- City -->
+                    <div class="form-group">
+                        <label for="ville">City:</label>
+                        <input type="text" id="ville" formControlName="ville">
+                    </div>
+
+                    <!-- Country -->
+                    <div class="form-group">
+                        <label for="pays">Country:</label>
+                        <input type="text" id="pays" formControlName="pays">
+                    </div>
+                </section>
+
+                <!-- Additional Information -->
+                <section class="form-section">
+                    <h3>Additional Information</h3>
+                    <!-- Sector of Activity -->
+                    <div formGroupName="secteurActivite" class="form-group">
+                        <label for="secteurActivite">Secteur d'Activité:</label>
+                        <select formControlName="idSectActivite" id="secteurActivite" required>
+                            <option value="">Select a Secteur d'Activité</option>
+                            <option *ngFor="let secteur of secteurs" [value]="secteur.idSectActivite">{{ secteur.nomSectActivite }}</option>
+                        </select>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" formControlName="description"></textarea>
+                    </div>
+                </section>
+            </div>
+
+            <!-- New Section for "Nom Paramètre" -->
+            <div class="form-right" *ngIf="user.role == 'ROLE_ADMIN' || user.role == 'ROLE_ADMIN_COM'">
+                <section class="form-section">
+                    <h3>Paramètre</h3>
+                    <!-- Example Input for "Nom Paramètre" -->
+                    <div class="form-group">
+                        <label for="remis">Ajouter un Remis :</label>
+                        <button class="btn-edit" (click)="selectClient(client)">Remis</button>
+                        
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            <button type="submit" [disabled]="clientForm.invalid">Update Client</button>
+        </div>
+    </form>
+
+    <!-- Error Message -->
+    <div *ngIf="error" class="error-message">
+        {{ error }}
+    </div>
+</div>

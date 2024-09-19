@@ -1,0 +1,33 @@
+  
+  /* Base button styles */
+  button {
+    padding: 10px 20px; /* Padding inside the button */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners */
+    font-size: 16px; /* Font size */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+  }
+  
+  /* Styles for English button */
+  button:nth-of-type(1) {
+    background-color: #007bff; /* Primary blue color */
+    color: #fff; /* White text color */
+  }
+  
+  button:nth-of-type(1):hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly increase size on hover */
+  }
+  
+  /* Styles for French button */
+  button:nth-of-type(2) {
+    background-color: #28a745; /* Success green color */
+    color: #fff; /* White text color */
+  }
+  
+  button:nth-of-type(2):hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slightly increase size on hover */
+  }
+  

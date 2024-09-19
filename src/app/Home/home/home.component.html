@@ -1,0 +1,60 @@
+<div class="home-container">
+    <header class="home-header">
+      <div class="hero-section">
+        <h1>Société Nationale de Distribution des Pétroles Agil Energy (SNDP AGIL Energy)</h1>
+        <p>Bienvenue sur le site officiel de AGIL</p>
+      </div>
+    </header>
+  
+    <section class="company-overview">
+      <h2>À Propos de Nous</h2>
+      <p>
+        Société Nationale de Distribution des Pétroles Agil Energy, ou SNDP AGIL Energy, dont la dénomination commerciale est AGIL, est une entreprise publique de Tunisie. Créée en 1960, AGIL est un acteur majeur dans la commercialisation des produits pétroliers et leurs dérivés.
+      </p>
+      <section class="company-overview">
+        
+        <div class="company-details">
+          <div class="detail" [ngClass]="{'selected': isSelected('creation')}" (click)="selectDetail('creation')">
+            <h3>Création</h3>
+            <p>1960</p>
+          </div>
+          <div class="detail" [ngClass]="{'selected': isSelected('effectif')}" (click)="selectDetail('effectif')">
+            <h3>Effectif</h3>
+            <p>1 125 employés (2018)</p>
+          </div>
+          <div class="detail" [ngClass]="{'selected': isSelected('forme-juridique')}" (click)="selectDetail('forme-juridique')">
+            <h3>Forme Juridique</h3>
+            <p>Société Anonyme</p>
+          </div>
+          <div class="detail" [ngClass]="{'selected': isSelected('siege-social')}" (click)="selectDetail('siege-social')">
+            <h3>Siège Social</h3>
+            <p>Tunis, Tunisie</p>
+          </div>
+          <div class="detail" [ngClass]="{'selected': isSelected('chiffre-affaires')}" (click)="selectDetail('chiffre-affaires')">
+            <h3>Chiffre d'Affaires</h3>
+            <p>2 035 000 000 TND (2018)</p>
+          </div>
+          <div class="detail" [ngClass]="{'selected': isSelected('site-web')}" (click)="selectDetail('site-web')">
+            <h3>Site Web</h3>
+            <p><a href="http://www.agil.com.tn" target="_blank">www.agil.com.tn</a></p>
+          </div>
+        </div>
+      </section>     
+      
+    </section>
+  
+    <section class="company-history">
+      <h2>Historique</h2>
+      <p>
+        AGIL a été créée en 1960 par le groupe italien Eni sous le nom d'AGIP. En 1975, l'État tunisien a racheté les parts d'Eni, et en 1977, l'entreprise est devenue la Société nationale de distribution des pétroles. En 2000, elle a été transformée en société anonyme.
+      </p>
+    </section>
+  
+    <section class="contact-info">
+      <h2>Contactez-Nous</h2>
+      <p>
+        Pour toute demande d'information, veuillez nous contacter via notre site web ou nos bureaux situés à Tunis.
+      </p>
+    </section>
+  </div>
+  

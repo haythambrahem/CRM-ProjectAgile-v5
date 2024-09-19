@@ -1,0 +1,71 @@
+<div class="emballage-container">
+    <h2>{{ 'EMBALLAGE_MANAGEMENT' | translate }}</h2>
+  
+    <div class="emballage-table-container">
+      <h3>{{ 'EMBALLAGES_LIST' | translate }}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>{{ 'CODE' | translate }}</th>
+            <th>{{ 'LIBELLE' | translate }}</th>
+            <th>{{ 'WEIGHT' | translate }}</th>
+            <th>{{ 'UNIT_PRICE' | translate }}</th>
+            <th>{{ 'ACTIVE' | translate }}</th>
+            <th>{{ 'CREATION_DATE' | translate }}</th>
+            <th>{{ 'MODIFICATION_DATE' | translate }}</th>
+            <th>{{ 'ACTIONS' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emballage of emballages">
+            <td>{{ emballage.codeEmballage }}</td>
+            <td>{{ emballage.libelleEmballage }}</td>
+            <td>{{ emballage.poids }} kg</td>
+            <td>{{ emballage.prixUnitaire }} TND</td>
+            <td>{{ emballage.actif ? ('YES' | translate) : ('NO' | translate) }}</td>
+            <td>{{ emballage.date_creation | date }}</td>
+            <td>{{ emballage.date_modification | date }}</td>
+            <td>
+              <button (click)="editEmballage(emballage)" class="btn btn-edit">{{ 'EDIT' | translate }}</button>
+              <button (click)="deleteEmballage(emballage.id)" class="btn btn-delete">{{ 'DELETE' | translate }}</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="emballage-form">
+      <h3>{{ editing ? ('EDIT_EMBALLAGE' | translate) : ('ADD_NEW_EMBALLAGE' | translate) }}</h3>
+      <form (ngSubmit)="saveEmballage()">
+        <div class="form-group">
+          <label for="codeEmballage">{{ 'EMBALLAGE_CODE' | translate }}:</label>
+          <input id="codeEmballage" [(ngModel)]="currentEmballage.codeEmballage" name="codeEmballage" required />
+        </div>
+        <div class="form-group">
+          <label for="libelleEmballage">{{ 'EMBALLAGE_LIBELLE' | translate }}:</label>
+          <input id="libelleEmballage" [(ngModel)]="currentEmballage.libelleEmballage" name="libelleEmballage" required />
+        </div>
+        <div class="form-group">
+          <label for="poids">{{ 'WEIGHT' | translate }}:</label>
+          <input id="poids" [(ngModel)]="currentEmballage.poids" name="poids" type="number" step="0.1" required />
+        </div>
+        <div class="form-group">
+          <label for="prixUnitaire">{{ 'UNIT_PRICE' | translate }}:</label>
+          <input id="prixUnitaire" [(ngModel)]="currentEmballage.prixUnitaire" name="prixUnitaire" type="number" step="0.1" required />
+        </div>
+        <div class="form-group form-check">
+          <input id="actif" [(ngModel)]="currentEmballage.actif" name="actif" type="checkbox" class="form-check-input" /><br>
+          <label for="actif" class="form-check-label">{{ 'ACTIVE' | translate }}</label>
+        </div>
+        <div class="form-group">
+          <label for="description">{{ 'DESCRIPTION' | translate }}:</label>
+          <textarea id="description" [(ngModel)]="currentEmballage.description" name="description"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn btn-submit">{{ editing ? ('SAVE' | translate) : ('ADD' | translate) }}</button>
+          <button *ngIf="editing" type="button" (click)="clearSelection()" class="btn btn-cancel">{{ 'CANCEL' | translate }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

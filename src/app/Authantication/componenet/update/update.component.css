@@ -1,0 +1,36 @@
+.profile-form {
+    margin-left: 300px; /* Adjust based on your navigation bar width */
+    padding: 60px;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .profile-info {
+    margin-top: 20px;
+  }
+  
+  .profile-field {
+    margin-bottom: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .file-label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .profile-photo {
+    max-width: 300px;
+    max-height: 200px;
+  }
+  
+  .btn-primary {
+    margin-top: 20px;
+  }
+  

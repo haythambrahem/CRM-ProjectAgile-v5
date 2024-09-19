@@ -1,0 +1,133 @@
+<div class="devis-container">
+    <h2>{{ 'DEVIS_MANAGEMENT' | translate }}</h2>
+  
+    <div class="devis-table-container">
+        <h3>{{ 'DEVIS_LIST' | translate }}</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>{{ 'SUBJECT' | translate }}</th>
+                    <th>{{ 'CLIENT_NAME' | translate }}</th>
+                    <th>{{ 'ASSIGNED_TO' | translate }}</th>
+                    <th>{{ 'DEADLINE' | translate }}</th>
+                    <th>{{ 'DELIVERY_DELAY' | translate }}</th>
+                    <th>{{ 'DELIVERY_MODE' | translate }}</th>
+                    <th>{{ 'PAYMENT_MODE' | translate }}</th>
+                    <th>{{ 'PRODUCTS' | translate }}</th>
+                    <th>{{ 'CREATION_DATE' | translate }}</th>
+                    <th>{{ 'MODIFICATION_DATE' | translate }}</th>
+                    <th>{{ 'ACTIONS' | translate }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let devis of devisList" (click)="selectDevis(devis)">
+                    <td>{{ devis.sujet }}</td>
+                    <td>{{ devis.nomClient }}</td>
+                    <td>{{ devis.assigneA }}</td>
+                    <td>{{ devis.echeance | date }}</td>
+                    <td>{{ devis.delaiLivraison }}</td>
+                    <td>{{ devis.modeLivraison }}</td>
+                    <td>{{ devis.modePaiement }}</td>
+                    <td>§
+
+                    <ul>
+                        <li *ngFor="let produit of devis.produits">
+                            {{ produit.codeProduit }} 
+                            <h1> {{ produit.codeProduit }} </h1>
+                        </li>
+                    </ul>
+                    </td>
+                    <td>{{ devis.date_creation | date }}</td>
+                    <td>{{ devis.date_modification | date }}</td>
+                    <td>
+                        <button (click)="showDevis(devis)" class="btn btn-edit">{{ 'EDIT' | translate }}</button>
+                        <button (click)="deleteDevis(devis.id)" class="btn btn-delete">{{ 'DELETE' | translate }}</button>
+                        <div class="container">
+                          <select #fileType id="fileType">
+                            <option value="PDF">PDF</option>
+                            <option value="XLSX">XLSX</option>
+                            <option value="CSV">CSV</option>
+                            <option value="HTML">HTML</option>
+                            <option value="XML">XML</option>
+                            <option value="DOC">DOC</option>
+                          </select>
+                          <button (click)="downloadDevisReport(selectedDevis?.id || null, fileType.value)" [disabled]="!selectedDevis">
+                              {{ 'DOWNLOAD_REPORT' | translate }}
+                          </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  
+    <div class="devis-form">
+        <h3>{{ selectedDevis ? ( 'EDIT_DEVIS' | translate ) : ( 'ADD_NEW_DEVIS' | translate ) }}</h3>
+        <form (ngSubmit)="saveDevis()">
+            <div class="form-group">
+                <label for="sujet">{{ 'SUBJECT' | translate }}:</label>
+                <input id="sujet" [(ngModel)]="currentDevis.sujet" name="sujet" required />
+            </div>
+            <div class="form-group">
+              <label for="nomClient">{{ 'CLIENT_NAME' | translate }}:</label>
+              <select id="nomClient" [(ngModel)]="currentDevis.nomClient" name="nomClient" required>
+                <option *ngFor="let client of clients" [value]="client.nomClient">{{ client.nomClient }}</option>
+              </select>
+            </div>
+               
+            <div class="form-group">
+                <label for="assigneA">{{ 'ASSIGNED_TO' | translate }}:</label>
+                <input id="assigneA" [(ngModel)]="currentDevis.assigneA" name="assigneA" required />
+            </div>              
+              
+            <div class="form-group">
+                <label for="echeance">{{ 'DEADLINE' | translate }}:</label>
+                <input id="echeance" [(ngModel)]="currentDevis.echeance" name="echeance" type="date" required />
+            </div>
+            <div class="form-group">
+                <label for="delaiLivraison">{{ 'DELIVERY_DELAY' | translate }}:</label>
+                <select id="delaiLivraison" [(ngModel)]="currentDevis.delaiLivraison" name="delaiLivraison" required>
+                    <option *ngFor="let option of delaiLivraisonOptions" [value]="option">{{ option }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="modeLivraison">{{ 'DELIVERY_MODE' | translate }}:</label>
+                <select id="modeLivraison" [(ngModel)]="currentDevis.modeLivraison" name="modeLivraison" required>
+                    <option *ngFor="let option of modeLivraisonOptions" [value]="option">{{ option }}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="modePaiement">{{ 'PAYMENT_MODE' | translate }}:</label>
+                <select id="modePaiement" [(ngModel)]="currentDevis.modePaiement" name="modePaiement" required>
+                    <option *ngFor="let option of modePaiementOptions" [value]="option">{{ option }}</option>
+                </select>
+            </div>
+            <!-- <div class="form-group">
+                <label for="produits">{{ 'PRODUCTS' | translate }}:</label>
+                <select id="produits" [(ngModel)]="currentDevis.produits" name="produits" multiple>
+                    <option *ngFor="let produit of produits" [ngValue]="produit">{{ produit.codeProduit }}</option>
+                </select>
+            </div> -->
+            <div class="form-group">
+                <label>{{ 'PRODUCTS' | translate }}:</label>
+                <div class="product-checkboxes">
+                    <div *ngFor="let produit of produits">
+                        <label>
+                            <input type="checkbox" [checked]="selectedProducts.includes(produit)" (change)="handleCheckboxChange($event, produit)">
+                             code Produit : ({{ produit.codeProduit }}) prixgrox : ({{ produit.prixgrox }}) libelle Produit : ({{ produit.libelleProduit }})
+                          </label>
+                          
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="description">{{ 'DESCRIPTION' | translate }}:</label>
+                <textarea id="description" [(ngModel)]="currentDevis.description" name="description" required></textarea>
+            </div> 
+            
+            <button type="submit" class="btn btn-save">{{ selectedDevis ? ( 'UPDATE' | translate ) : ( 'SAVE' | translate ) }}</button>
+            <button type="button" class="btn btn-clear" (click)="clearSelection()">{{ 'CLEAR' | translate }}</button>
+        </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,47 @@
+<div class="discount-detail-container">
+  <!-- Display errors -->
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <!-- List of remises -->
+  <div class="devis-table-container">
+    <h3>Remises List</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Amount</th>
+          <th>Type de Remis</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let remis of discounts ; index as i">
+          <td>{{ remis.amount }} {{ remis.type === 'POURCENTAGE' ? '%' : 'TND' }}</td>
+          <td>{{ remis.type }}</td>
+          <td>
+            <button (click)="editDiscount(i)" class="btn btn-edit">Edit</button>
+            <button (click)="deleteDiscount(i)" class="btn btn-delete">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Add new remise form -->
+  <div class="add-remis-form">
+    <h4>{{ formTitle }}</h4>
+    <form (ngSubmit)="addDiscount()">
+      <div class="form-group">
+        <label for="type">Type:</label>
+        <select id="type" [(ngModel)]="newDiscount.type" name="type" class="form-control" (change)="onTypeChange()">
+          <option *ngFor="let type of discountTypes" [ngValue]="type">{{ type }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="amount">{{ amountLabel }}</label>
+        <input id="amount" [(ngModel)]="newDiscount.amount" name="amount" [placeholder]="amountPlaceholder" type="number" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Update Remis' : 'Add Remis' }}</button>
+      <button *ngIf="isEditMode" type="button" (click)="cancelEdit()" class="btn btn-secondary">Cancel</button>
+    </form>
+  </div>
+</div>

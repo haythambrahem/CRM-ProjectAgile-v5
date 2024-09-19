@@ -1,0 +1,185 @@
+<div class="client-management-container">
+  <!-- Client List -->
+  <div class="client-list">
+    <h2>{{ 'CLIENT_LIST' | translate }}</h2>
+    <!-- report.component.html -->
+<div class="container">
+  <select #fileType>
+    <option value="PDF">PDF</option>
+    <option value="XLSX">XLSX</option>
+    <option value="CSV">CSV</option>
+    <option value="HTML">HTML</option>
+    <option value="XML">XML</option>
+    <option value="DOC">DOC</option>
+  </select>
+  <button (click)="downloadReport(fileType.value)">{{ 'DOWNLOAD_REPORT' | translate }}</button>
+</div>
+    
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <table>
+      <thead>
+        <tr>
+          <th>{{ 'ID' | translate }}</th>
+          <th>{{ 'CLIENT_NAME' | translate }}</th>
+          <th>{{ 'EMAIL' | translate }}</th>
+          <th>{{ 'PHONE' | translate }}</th>
+          <th>{{ 'ACCOUNT_NUMBER' | translate }}</th>
+          <th>{{ 'REVENUE' | translate }}</th>
+          <th>{{ 'STATUS' | translate }}</th>
+          <th>{{ 'ACTIONS' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let client of clients">
+          <td>{{ client.id }}</td>
+          <td>{{ client.nomClient }}</td>
+          <td>{{ client.email }}</td>
+          <td>{{ client.telephone }}</td>
+          <td>{{ client.numeroCompte }}</td>
+          <td>{{ client.chiffreAffaires }} TND</td>
+          <td>{{ client.exonere ? ('EXEMPT' | translate) : ('NON_EXEMPT' | translate) }}</td>
+          <td>
+            <button class="btn-edit" (click)="selectClient(client)">{{ 'DETAILS' | translate }}</button>
+            <button class="btn-delete" (click)="deleteClient(client.id!)">{{ 'DELETE' | translate }}</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div><br>
+    <!-- Create Client Form -->
+  <div class="form-container">
+    <h2>{{ 'CREATE_NEW_CLIENT' | translate }}</h2>
+    <form (ngSubmit)="createClient()" #createClientForm="ngForm">
+      <div class="form-group">
+        <label for="nomClient">{{ 'CLIENT_NAME' | translate }}:</label>
+        <input type="text" id="nomClient" [(ngModel)]="newClient.nomClient" name="nomClient" required>
+      </div>
+      <div class="form-group">
+        <label for="numeroCompte">{{ 'ACCOUNT_NUMBER' | translate }}:</label>
+        <input type="text" id="numeroCompte" [(ngModel)]="newClient.numeroCompte" name="numeroCompte" required>
+      </div>
+      <div class="form-group">
+        <label for="numeroSousCompte">{{ 'SUB_ACCOUNT_NUMBER' | translate }}:</label>
+        <input type="text" id="numeroSousCompte" [(ngModel)]="newClient.numeroSousCompte" name="numeroSousCompte">
+      </div>
+      <div class="form-group">
+        <label for="matriculeFiscal">{{ 'TAX_REGISTRATION_NUMBER' | translate }}:</label>
+        <input type="text" id="matriculeFiscal" [(ngModel)]="newClient.matriculeFiscal" name="matriculeFiscal">
+      </div>
+      <div class="form-group">
+        <label for="chiffreAffaires">{{ 'REVENUE' | translate }}:</label>
+        <input type="number" id="chiffreAffaires" [(ngModel)]="newClient.chiffreAffaires" name="chiffreAffaires" step="0.1">
+      </div>
+      <div class="form-group">
+        <label for="effectif">{{ 'STAFF_COUNT' | translate }}:</label>
+        <input type="number" id="effectif" [(ngModel)]="newClient.effectif" name="effectif">
+      </div>
+      <div class="form-group">
+        <label for="exonere">{{ 'EXEMPT' | translate }}:</label>
+        <input type="checkbox" id="exonere" [(ngModel)]="newClient.exonere" name="exonere">
+      </div>
+      <div class="form-group">
+        <label for="dateLimiteExoneration">{{ 'EXEMPTION_DEADLINE' | translate }}:</label>
+        <input type="date" id="dateLimiteExoneration" [(ngModel)]="newClient.dateLimiteExoneration" name="dateLimiteExoneration">
+      </div>
+      <div class="form-group">
+        <label for="modeFacturation">{{ 'BILLING_MODE' | translate }}:</label>
+        <select id="modeFacturation" [(ngModel)]="newClient.modeFacturation" name="modeFacturation">
+          <option *ngFor="let mode of modeFacturations" [value]="mode">{{ mode | translate }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="conditionPaiement">{{ 'PAYMENT_CONDITION' | translate }}:</label>
+        <select id="conditionPaiement" [(ngModel)]="newClient.conditionPaiement" name="conditionPaiement">
+          <option *ngFor="let condition of conditions" [value]="condition">{{ condition | translate }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="blocage">{{ 'BLOCKAGE' | translate }}:</label>
+        <select id="blocage" [(ngModel)]="newClient.blocage" name="blocage">
+          <option *ngFor="let block of blocages" [value]="block">{{ block | translate }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="prixAchats">{{ 'PURCHASE_PRICE' | translate }}:</label>
+        <input type="text" id="prixAchats" [(ngModel)]="newClient.prixAchats" name="prixAchats">
+      </div>
+      <div class="form-group">
+        <label for="gouvernorat">{{ 'GOVERNORATE' | translate }}:</label>
+        <select id="gouvernorat" [(ngModel)]="newClient.gouvernorat" name="gouvernorat">
+          <option *ngFor="let gov of gouvernorats" [value]="gov">{{ gov | translate }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="localite">{{ 'LOCALITY' | translate }}:</label>
+        <select id="localite" [(ngModel)]="newClient.localite" name="localite">
+          <option *ngFor="let loc of localites" [value]="loc">{{ loc | translate }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="zoneGeographique">{{ 'GEOGRAPHICAL_ZONE' | translate }}:</label>
+        <select id="zoneGeographique" [(ngModel)]="newClient.zoneGeographique" name="zoneGeographique">
+          <option *ngFor="let zone of zones" [value]="zone">{{ zone | translate }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mobile">{{ 'MOBILE' | translate }}:</label>
+        <input type="text" id="mobile" [(ngModel)]="newClient.mobile" name="mobile">
+      </div>
+      <div class="form-group">
+        <label for="telephone">{{ 'TELEPHONE' | translate }}:</label>
+        <input type="text" id="telephone" [(ngModel)]="newClient.telephone" name="telephone">
+      </div>
+      <div class="form-group">
+        <label for="autreTelephone">{{ 'OTHER_TELEPHONE' | translate }}:</label>
+        <input type="text" id="autreTelephone" [(ngModel)]="newClient.autreTelephone" name="autreTelephone">
+      </div>
+      <div class="form-group">
+        <label for="fax">{{ 'FAX' | translate }}:</label>
+        <input type="text" id="fax" [(ngModel)]="newClient.fax" name="fax">
+      </div>
+      <div class="form-group">
+        <label for="email">{{ 'EMAIL' | translate }}:</label>
+        <input type="email" id="email" [(ngModel)]="newClient.email" name="email">
+      </div>
+      <div class="form-group">
+        <label for="autreEmail">{{ 'OTHER_EMAIL' | translate }}:</label>
+        <input type="email" id="autreEmail" [(ngModel)]="newClient.autreEmail" name="autreEmail">
+      </div>
+      <div class="form-group">
+        <label for="siteWeb">{{ 'WEBSITE' | translate }}:</label>
+        <input type="text" id="siteWeb" [(ngModel)]="newClient.siteWeb" name="siteWeb">
+      </div>
+      <div class="form-group">
+        <label for="rue">{{ 'STREET' | translate }}:</label>
+        <input type="text" id="rue" [(ngModel)]="newClient.rue" name="rue">
+      </div>
+      <div class="form-group">
+        <label for="codePostal">{{ 'POSTAL_CODE' | translate }}:</label>
+        <input type="text" id="codePostal" [(ngModel)]="newClient.codePostal" name="codePostal">
+      </div>
+      <div class="form-group">
+        <label for="ville">{{ 'CITY' | translate }}:</label>
+        <input type="text" id="ville" [(ngModel)]="newClient.ville" name="ville">
+      </div>
+      <div class="form-group">
+        <label for="pays">{{ 'COUNTRY' | translate }}:</label>
+        <input type="text" id="pays" [(ngModel)]="newClient.pays" name="pays">
+      </div>     
+      <!-- Secteur d'Activité Dropdown -->
+      <div class="form-group">
+        <label for="secteurActivite">{{ 'SECTOR' | translate }}:</label>
+        <select id="secteurActivite" [(ngModel)]="selectedSecteurId" name="secteurActivite" class="form-control">
+          <option *ngFor="let secteur of secteurs" [value]="secteur.idSectActivite">{{ secteur.nomSectActivite }}</option>
+        </select>
+      </div>   
+     
+      <div class="form-group">
+        <label for="description">{{ 'DESCRIPTION' | translate }}:</label>
+        <textarea id="description" [(ngModel)]="newClient.description" name="description"></textarea>
+      </div>
+      <button type="submit" [disabled]="createClientForm.invalid" class="btn-submit">{{ 'CREATE_CLIENT' | translate }}</button>
+    </form>
+  </div>
+  
+</div>

@@ -1,0 +1,52 @@
+<!-- [ Main Content ] start -->
+<div class="pc-container">
+    <div class="pcoded-content"><br><br>
+    
+        <!-- [ Main Content ] start -->
+        <!---->
+        <div class="row">
+            <!-- User List Section -->
+            <div class="card offset-2 col-md-8 rounded rounded-1">
+                <div class="card-body">
+                    <form class="w-100 h-100 p-4">
+                        <h2 class="text-3xl text-muted mt-2">{{ 'ADD_USER' | translate }}</h2><br>
+
+                        <div class="form-group ">
+                            <label for="firstName">{{ 'FIRST_NAME' | translate }}</label>
+                            <input type="text" name="firstName" class="form-control w-100" id="firstName"
+                                aria-describedby="firstNameHelp" [(ngModel)]="request.firstName" [placeholder]="'FIRST_NAME_PLACEHOLDER' | translate">
+                            <small id="firstNameHelp" class="form-text text-muted">{{ 'FIRST_NAME_HELP' | translate }}</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">{{ 'LAST_NAME' | translate }}</label>
+                            <input type="text" class="form-control w-100" name="lastName" id="lastName"
+                                [(ngModel)]="request.lastName" aria-describedby="lastNameHelp" [placeholder]="'LAST_NAME_PLACEHOLDER' | translate">
+                            <small id="lastNameHelp" class="form-text text-muted">{{ 'LAST_NAME_HELP' | translate }}</small>
+                        </div>
+
+                        <br>
+                        <h2 class="text-3xl text-muted">{{ 'CONTACT' | translate }}</h2><br>
+
+                        <div class="form-group">
+                            <label for="phone">{{ 'PHONE_NUMBER' | translate }}</label>
+                            <input type="tel" class="form-control w-100" id="phone" name="phoneNumber"
+                                [(ngModel)]="request.phoneNumber" aria-describedby="phoneHelp"
+                                [placeholder]="'PHONE_NUMBER_PLACEHOLDER' | translate">
+                            <small id="phoneHelp" class="form-text text-muted">{{ 'PHONE_HELP' | translate }}</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">{{ 'EMAIL' | translate }}</label>
+                            <input type="email" class="form-control w-100" id="email" name="email"
+                                [(ngModel)]="request.email" aria-describedby="emailHelp"
+                                [placeholder]="'EMAIL_PLACEHOLDER' | translate">
+                            <small id="email" class="form-text text-muted">{{ 'EMAIL_HELP' | translate }}</small>
+                        </div>
+                        <button type="submit" (click)="addUser($event)" class="btn btn-primary btn-lg">{{ 'SUBMIT' | translate }}</button>
+                    </form>
+                </div>
+            </div>
+            <!-- End User List Section -->
+        </div>
+        <!-- [ Main Content ] end -->
+    </div>
+</div>

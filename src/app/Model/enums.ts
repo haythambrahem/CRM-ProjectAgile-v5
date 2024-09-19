@@ -1,0 +1,93 @@
+export enum Blocage {
+    BLOCAGE_TYPE1 = 'BLOCAGE_TYPE1',
+    BLOCAGE_TYPE2 = 'BLOCAGE_TYPE2',
+    BLOCAGE_TYPE3 = 'BLOCAGE_TYPE3',
+  }
+  
+  export enum ConditionPayement {
+    CONDITION_PAYEMENT_1 = 'CONDITION_PAYEMENT_1',
+    CONDITION_PAYEMENT_2 = 'CONDITION_PAYEMENT_2',
+    CONDITION_PAYEMENT_3 = 'CONDITION_PAYEMENT_3',
+  }
+  
+  export enum ModeFacturation {
+    MODE_FACTURATION_1 = 'MODE_FACTURATION_1',
+    MODE_FACTURATION_2 = 'MODE_FACTURATION_2',
+    MODE_FACTURATION_3 = 'MODE_FACTURATION_3',
+  }
+  
+  export enum Gouvernorat {
+    ARIANA = 'ARIANA',
+    BEJA = 'BEJA',
+    BEN_AROUS = 'BEN_AROUS',
+    BIZERTE = 'BIZERTE',
+    GABES = 'GABES',
+    GAFSA = 'GAFSA',
+    JENDOUBA = 'JENDOUBA',
+    KAIROUAN = 'KAIROUAN',
+    KASSERINE = 'KASSERINE',
+    KEBILI = 'KEBILI',
+    KEF = 'KEF',
+    MAHDIA = 'MAHDIA',
+    MANOUBA = 'MANOUBA',
+    MEDENINE = 'MEDENINE',
+    MONASTIR = 'MONASTIR',
+    NABEUL = 'NABEUL',
+    SFAX = 'SFAX',
+    SIDI_BOUZID = 'SIDI_BOUZID',
+    SILIANA = 'SILIANA',
+    SOUSSE = 'SOUSSE',
+    TATAOUINE = 'TATAOUINE',
+    TOZEUR = 'TOZEUR',
+    TUNIS = 'TUNIS',
+    ZAGHOUAN = 'ZAGHOUAN',
+  }
+  
+  export enum Localite {
+    TUNIS = 'TUNIS',
+    ARIANA = 'ARIANA',
+    SOUSSE = 'SOUSSE',
+    SFAX = 'SFAX',
+    NABEUL = 'NABEUL',
+    BEN_AROUS = 'BEN_AROUS',
+    BIZERTE = 'BIZERTE',
+    GABES = 'GABES',
+    GAFSA = 'GAFSA',
+    JENDOUBA = 'JENDOUBA',
+    KAIROUAN = 'KAIROUAN',
+    KASSERINE = 'KASSERINE',
+    KEBILI = 'KEBILI',
+    KEF = 'KEF',
+    MAHDIA = 'MAHDIA',
+    MANOUBA = 'MANOUBA',
+    MEDENINE = 'MEDENINE',
+    MONASTIR = 'MONASTIR',
+    SILIANA = 'SILIANA',
+    SIDI_BOUZID = 'SIDI_BOUZID',
+    TOZEUR = 'TOZEUR',
+    TATAOUINE = 'TATAOUINE',
+    ZAGHOUAN = 'ZAGHOUAN',
+    MARS = 'MARS',
+    LA_MARSA = 'LA_MARSA',
+    RADES = 'RADES',
+    EZZAHRA = 'EZZAHRA',
+    KRAM = 'KRAM',
+    BARDO = 'BARDO',
+  }
+  
+  export enum ZoneGeographique {
+    ZONE_01 = 'ZONE_01',
+    ZONE_02 = 'ZONE_02',
+    ZONE_03 = 'ZONE_03',
+    ZONE_04 = 'ZONE_04',
+    ZONE_05 = 'ZONE_05',
+    ZONE_06 = 'ZONE_06',
+    ZONE_07 = 'ZONE_07',
+    ZONE_08 = 'ZONE_08',
+  }
+  export enum DiscountType {
+    MOUNTANT ='MOUNTANT',
+    POURCENTAGE ='POURCENTAGE'
+  }
+  
+  

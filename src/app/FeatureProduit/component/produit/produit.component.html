@@ -1,0 +1,126 @@
+<div class="produit-container">
+  <h2>{{ 'PRODUCT_MANAGEMENT' | translate }}</h2>
+
+  <!-- Products Table -->
+  <div class="product-table-container">
+    <h3>{{ 'PRODUCTS_LIST' | translate }}</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>{{ 'CODE' | translate }}</th>
+          <th>{{ 'LIBELLE' | translate }}</th>
+          <th>{{ 'CATEGORY' | translate }}</th>
+          <th>{{ 'WEIGHT' | translate }}</th>
+          <th>{{ 'TYPE' | translate }}</th>
+          <th>{{ 'ACTIVE' | translate }}</th>
+          <th>{{ 'PACKAGED' | translate }}</th>
+          <th>{{ 'CODE_EMBALLAGE' | translate }}</th>
+          <th>{{ 'ECO_FRIENDLY' | translate }}</th>
+          <th>{{ 'WHOLESALE_PRICE' | translate }}</th>
+          <!-- <th>{{ 'RETAIL_PRICE' | translate }}</th>
+          <th>{{ 'MANAGER_PRICE' | translate }}</th> -->
+          <th>{{ 'ACTIONS' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let produit of produits">
+          <td>{{ produit.codeProduit }}</td>
+          <td>{{ produit.libelleProduit }}</td>
+          <td>{{ produit.categorie }}</td>
+          <td>{{ produit.poids }} kg</td>
+          <td>{{ produit.typeProduit }}</td>
+          <td>{{ produit.actif ? ( 'YES' | translate ) : ( 'NO' | translate ) }}</td>
+          <td>{{ produit.packagee ? ( 'YES' | translate ) : ( 'NO' | translate ) }}</td>
+          <td>{{ produit.emballage?.codeEmballage || ( 'N/A' | translate ) }}</td>
+          <td>{{ produit.ecozit ? ( 'YES' | translate ) : ( 'NO' | translate ) }}</td>
+          <td>{{ produit.prixgrox  }} TND</td>
+          <!-- <td>{{ produit.prixgdetail }} TND</td>
+          <td>{{ produit.prixgerant }} TND</td> -->
+          <td>
+            <button (click)="selectProduit(produit)" class="btn btn-edit">{{ 'EDIT' | translate }}</button>
+            <button (click)="deleteProduit(produit.id)" class="btn btn-delete">{{ 'DELETE' | translate }}</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Product Form -->
+  <div class="product-form">
+    <h3>{{ selectedProduit ? ( 'EDIT_PRODUCT' | translate ) : ( 'ADD_NEW_PRODUCT' | translate ) }}</h3>
+    <form (ngSubmit)="saveProduit()">
+      <div class="form-group">
+        <label for="codeProduit">{{ 'PRODUCT_CODE' | translate }}:</label>
+        <input id="codeProduit" [(ngModel)]="currentProduit.codeProduit" name="codeProduit" required />
+      </div>
+
+      <div class="form-group">
+        <label for="libelleProduit">{{ 'LIBELLE' | translate }}:</label>
+        <input id="libelleProduit" [(ngModel)]="currentProduit.libelleProduit" name="libelleProduit" required />
+      </div>
+
+      <div class="form-group">
+        <label for="categorie">{{ 'CATEGORY' | translate }}:</label>
+        <input id="categorie" [(ngModel)]="currentProduit.categorie" name="categorie" required />
+      </div>
+
+      <div class="form-group">
+        <label for="poids">{{ 'WEIGHT' | translate }}:</label>
+        <input id="poids" [(ngModel)]="currentProduit.poids" name="poids" type="number" step="0.1" required />
+      </div>
+
+      <div class="form-group">
+        <label for="typeProduit">{{ 'PRODUCT_TYPE' | translate }}:</label>
+        <input id="typeProduit" [(ngModel)]="currentProduit.typeProduit" name="typeProduit" required />
+      </div>
+
+      <div class="form-group">
+        <label for="actif">{{ 'ACTIVE' | translate }}:</label>
+        <input id="actif" [(ngModel)]="currentProduit.actif" name="actif" type="checkbox" />
+      </div>
+
+      <div class="form-group">
+        <label for="packagee">{{ 'PACKAGED' | translate }}:</label>
+        <input id="packagee" [(ngModel)]="currentProduit.packagee" name="packagee" type="checkbox" />
+      </div>
+
+      <!-- Conditional Form for Packaging Type -->
+      <div *ngIf="currentProduit.packagee" class="form-group">
+        <label for="emballage">{{ 'PACKAGING_TYPE' | translate }}:</label>
+        <select id="emballage" [(ngModel)]="currentProduit.emballage" name="emballage" required>
+          <option *ngFor="let emballage of emballages" [ngValue]="emballage">{{ emballage.codeEmballage }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="ecozit">{{ 'ECO_FRIENDLY' | translate }}:</label>
+        <input id="ecozit" [(ngModel)]="currentProduit.ecozit" name="ecozit" type="checkbox" />
+      </div>
+
+      <div class="form-group">
+        <label for="prixgrox">{{ 'WHOLESALE_PRICE' | translate }}:</label>
+        <input id="prixgrox" [(ngModel)]="currentProduit.prixgrox" name="prixgrox" type="number" step="0.01" required />
+      </div>
+
+      <!-- <div class="form-group">
+        <label for="prixgdetail">{{ 'RETAIL_PRICE' | translate }}:</label>
+        <input id="prixgdetail" [(ngModel)]="currentProduit.prixgdetail" name="prixgdetail" type="number" step="0.01" />
+      </div>
+
+      <div class="form-group">
+        <label for="prixgerant">{{ 'MANAGER_PRICE' | translate }}:</label>
+        <input id="prixgerant" [(ngModel)]="currentProduit.prixgerant" name="prixgerant" type="number" step="0.01" />
+      </div> -->
+
+      <div class="form-group">
+        <label for="description">{{ 'DESCRIPTION' | translate }}:</label>
+        <textarea id="description" [(ngModel)]="currentProduit.description" name="description"></textarea>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-save">{{ selectedProduit ? ( 'UPDATE_PRODUCT' | translate ) : ( 'ADD_PRODUCT' | translate ) }}</button>
+        <button type="button" (click)="cancelEdit()" class="btn btn-cancel">{{ 'CANCEL' | translate }}</button>
+      </div>
+    </form>
+  </div>
+</div>

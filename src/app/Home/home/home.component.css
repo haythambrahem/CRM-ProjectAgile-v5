@@ -1,0 +1,102 @@
+.home-container {
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  .home-header {
+    background: url('src\assets\hero-bg.jpg') no-repeat center center;
+    background-size: cover;
+    text-align: center;
+    padding: 100px 20px;
+    color: #fff;
+  }
+  
+  .home-header h1 {
+    font-size: 3rem;
+    margin: 0;
+  }
+  
+  .home-header p {
+    font-size: 1.5rem;
+    margin: 10px 0;
+  }
+  
+  .company-overview {
+    padding: 40px 20px;
+    background: #f9f9f9;
+    text-align: center;
+  }
+  
+  .company-overview h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  .company-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .detail {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 200px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: background-color 0.3s, transform 0.3s;
+    cursor: pointer;
+  }
+  
+  .detail:hover {
+    background-color: #f0f8ff; /* Light blue background on hover */
+  }
+  
+  .detail.selected {
+    background-color: #007bff; /* Change background color when selected */
+    color: #fff;
+  }
+  
+  .detail h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+  
+  .detail p {
+    margin: 0;
+  }
+  
+  .detail a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .detail a:hover {
+    text-decoration: underline;
+  }
+  
+  
+  .company-history {
+    padding: 40px 20px;
+    background: #fff;
+    text-align: center;
+  }
+  
+  .company-history h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .contact-info {
+    padding: 40px 20px;
+    background: #f9f9f9;
+    text-align: center;
+  }
+  
+  .contact-info h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  

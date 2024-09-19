@@ -1,0 +1,245 @@
+<!-- prospect.component.html -->
+<div class="prospect-container">
+  <!-- Header Section -->
+  <div class="header">
+    <h2>{{ 'HEADER' | translate }}</h2>
+    <button class="add-btn" (click)="selectedProspect = null">{{ 'ADD_NEW' | translate }}</button>
+  </div>
+  <div class="container">
+    <select #fileType>
+      <option value="PDF">PDF</option>
+      <option value="XLSX">XLSX</option>
+      <option value="CSV">CSV</option>
+      <option value="HTML">HTML</option>
+      <option value="XML">XML</option>
+      <option value="DOC">DOC</option>
+    </select>
+    <button (click)="downloadReport(fileType.value)">{{ 'DOWNLOAD_REPORT' | translate }}</button>
+  </div>
+
+  <!-- Prospect List -->
+  <!-- <ul class="prospect-list">
+    <li *ngFor="let prospect of prospects">
+      <div>
+        {{ prospect.nom }} {{ prospect.prenom }} - {{ prospect.societe }} - {{ prospect.date_creation }}
+      </div>
+      <div>
+        <button class="edit-btn" (click)="selectProspect(prospect)">{{ 'EDIT' | translate }}</button>
+        <button class="delete-btn" (click)="deleteProspect(prospect.id!)">{{ 'DELETE' | translate }}</button>
+      </div>
+    </li>
+  </ul> -->
+  <!-- Display error message if any -->
+<div *ngIf="error" class="error">{{ error }}</div>
+
+<!-- Prospect List as a Table -->
+<table>
+  <thead>
+    <tr>
+      <th>{{ 'ID' | translate }}</th>
+      <th>{{ 'NAME' | translate }}</th>
+      <th>{{ 'COMPANY' | translate }}</th>
+      <th>{{ 'CREATION_DATE' | translate }}</th>
+      <th>{{ 'ACTIONS' | translate }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let prospect of prospects">
+      <td>{{ prospect.id }}</td>
+      <td>{{ prospect.nom }} {{ prospect.prenom }}</td>
+      <td>{{ prospect.societe }}</td>
+      <td>{{ prospect.date_creation }}</td>
+      <td>
+        <button class="btn-edit" (click)="selectProspect(prospect)">{{ 'EDIT' | translate }}</button>
+        <button class="btn-delete" (click)="deleteProspect(prospect.id!)">{{ 'DELETE' | translate }}</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+  <!-- Add New Prospect Form -->
+  <div *ngIf="!selectedProspect">
+    <h3>{{ 'ADD_NEW_PROSPECT' | translate }}</h3>
+    <form (ngSubmit)="createProspect()">
+      <div class="form-group">
+        <label for="nom">{{ 'NOM' | translate }}</label>
+        <input [(ngModel)]="newProspect.nom" name="nom" id="nom" placeholder="{{ 'NOM' | translate }}" required />
+      </div>
+      <div class="form-group">
+        <label for="prenom">{{ 'PRENOM' | translate }}</label>
+        <input [(ngModel)]="newProspect.prenom" name="prenom" id="prenom" placeholder="{{ 'PRENOM' | translate }}" required />
+      </div>
+      <div class="form-group">
+        <label for="titre">{{ 'TITRE' | translate }}</label>
+        <input [(ngModel)]="newProspect.titre" name="titre" id="titre" placeholder="{{ 'TITRE' | translate }}" required />
+      </div>
+      <div class="form-group">
+        <label for="societe">{{ 'SOCIETE' | translate }}</label>
+        <input [(ngModel)]="newProspect.societe" name="societe" id="societe" placeholder="{{ 'SOCIETE' | translate }}" required />
+      </div>
+      <div class="form-group">
+        <label for="chiffreAffaires">{{ 'CHIFFRE_AFFAIRES' | translate }}</label>
+        <input [(ngModel)]="newProspect.chiffreAffaires" name="chiffreAffaires" id="chiffreAffaires" placeholder="{{ 'CHIFFRE_AFFAIRES' | translate }}" type="number" required />
+      </div>
+      <div class="form-group">
+        <label for="effectif">{{ 'EFFECTIF' | translate }}</label>
+        <input [(ngModel)]="newProspect.effectif" name="effectif" id="effectif" placeholder="{{ 'EFFECTIF' | translate }}" type="number" required />
+      </div>
+      <div class="form-group">
+        <label for="secteurActivite">{{ 'SECTEUR_ACTIVITE' | translate }}</label>
+        <select [(ngModel)]="newProspect.secteur" name="secteurActivite" id="secteurActivite" placeholder="SECTEUR_ACTIVITE" required>
+          <option *ngFor="let secteurActivite of secteurActiviteOptions" [value]="secteurActivite">{{ 'SECTEUR_ACTIVITE' | translate }}</option>
+        </select>
+      </div>      
+      <div class="form-group">
+        <label for="sourceProspection">{{ 'SOURCE_PROSPECTION' | translate }}</label>
+        <input [(ngModel)]="newProspect.sourceProspection" name="sourceProspection" id="sourceProspection" placeholder="{{ 'SOURCE_PROSPECTION' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="statut">{{ 'STATUT' | translate }}</label>
+        <select [(ngModel)]="newProspect.statut" name="statut" id="statut" required>
+          <option *ngFor="let statut of statutOptions" [value]="statut">{{ statut }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mobile">{{ 'MOBILE' | translate }}</label>
+        <input [(ngModel)]="newProspect.mobile" name="mobile" id="mobile" placeholder="{{ 'MOBILE' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="telephone">{{ 'TELEPHONE' | translate }}</label>
+        <input [(ngModel)]="newProspect.telephone" name="telephone" id="telephone" placeholder="{{ 'TELEPHONE' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="fax">{{ 'FAX' | translate }}</label>
+        <input [(ngModel)]="newProspect.fax" name="fax" id="fax" placeholder="{{ 'FAX' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="email">{{ 'EMAIL' | translate }}</label>
+        <input [(ngModel)]="newProspect.email" name="email" id="email" placeholder="{{ 'EMAIL' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="emailSecondaire">{{ 'EMAIL_SECONDAIRE' | translate }}</label>
+        <input [(ngModel)]="newProspect.emailSecondaire" name="emailSecondaire" id="emailSecondaire" placeholder="{{ 'EMAIL_SECONDAIRE' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="siteWeb">{{ 'SITE_WEB' | translate }}</label>
+        <input [(ngModel)]="newProspect.siteWeb" name="siteWeb" id="siteWeb" placeholder="{{ 'SITE_WEB' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="rue">{{ 'RUE' | translate }}</label>
+        <input [(ngModel)]="newProspect.rue" name="rue" id="rue" placeholder="{{ 'RUE' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="codePostal">{{ 'CODE_POSTAL' | translate }}</label>
+        <input [(ngModel)]="newProspect.codePostal" name="codePostal" id="codePostal" placeholder="{{ 'CODE_POSTAL' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="ville">{{ 'VILLE' | translate }}</label>
+        <input [(ngModel)]="newProspect.ville" name="ville" id="ville" placeholder="{{ 'VILLE' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="pays">{{ 'PAYS' | translate }}</label>
+        <input [(ngModel)]="newProspect.pays" name="pays" id="pays" placeholder="{{ 'PAYS' | translate }}" />
+      </div>
+      <div class="form-group">
+        <label for="description">{{ 'DESCRIPTION' | translate }}</label>
+        <textarea [(ngModel)]="newProspect.description" name="description" id="description" placeholder="{{ 'DESCRIPTION' | translate }}"></textarea>
+      </div>
+      
+      <button class="submit-btn" type="submit">{{ 'ADD_BUTTON' | translate }}</button>
+    </form>
+  </div>
+
+  <!-- Edit Prospect Form -->
+  <div *ngIf="selectedProspect">
+    <h3>Edit Prospect</h3>
+    <form (ngSubmit)="updateProspect()">
+      <div class="form-group">
+        <label for="nom">Nom</label>
+        <input [(ngModel)]="selectedProspect.nom" name="nom" id="nom" placeholder="Nom" required />
+      </div>
+      <div class="form-group">
+        <label for="prenom">Prenom</label>
+        <input [(ngModel)]="selectedProspect.prenom" name="prenom" id="prenom" placeholder="Prenom" required />
+      </div>
+      <div class="form-group">
+        <label for="titre">Titre</label>
+        <input [(ngModel)]="selectedProspect.titre" name="titre" id="titre" placeholder="Titre" required />
+      </div>
+      <div class="form-group">
+        <label for="societe">Societe</label>
+        <input [(ngModel)]="selectedProspect.societe" name="societe" id="societe" placeholder="Societe" required />
+      </div>
+      <div class="form-group">
+        <label for="chiffreAffaires">Chiffre Affaires</label>
+        <input [(ngModel)]="selectedProspect.chiffreAffaires" name="chiffreAffaires" id="chiffreAffaires" placeholder="Chiffre Affaires" type="number" required />
+      </div>
+      <div class="form-group">
+        <label for="effectif">Effectif</label>
+        <input [(ngModel)]="selectedProspect.effectif" name="effectif" id="effectif" placeholder="Effectif" type="number" required />
+      </div>
+      <div class="form-group">
+        <label for="statut">Statut</label>
+        <select [(ngModel)]="selectedProspect.statut" name="statut" id="statut" required>
+          <option *ngFor="let statut of statutOptions" [value]="statut">{{ statut }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="secteurActivite">Secteur Activite</label>
+        <select [(ngModel)]="selectedProspect.secteur" name="secteurActivite" id="secteurActivite" placeholder="Secteur Activite" required >
+          <option *ngFor="let secteurActivite of secteurActiviteOptions" [value]="secteurActivite">{{ secteurActivite }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="sourceProspection">Source Prospection</label>
+        <input [(ngModel)]="selectedProspect.sourceProspection" name="sourceProspection" id="sourceProspection" placeholder="Source Prospection" />
+      </div>
+      <div class="form-group">
+        <label for="mobile">Mobile</label>
+        <input [(ngModel)]="selectedProspect.mobile" name="mobile" id="mobile" placeholder="Mobile" />
+      </div>
+      <div class="form-group">
+        <label for="telephone">Telephone</label>
+        <input [(ngModel)]="selectedProspect.telephone" name="telephone" id="telephone" placeholder="Telephone" />
+      </div>
+      <div class="form-group">
+        <label for="fax">Fax</label>
+        <input [(ngModel)]="selectedProspect.fax" name="fax" id="fax" placeholder="Fax" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input [(ngModel)]="selectedProspect.email" name="email" id="email" placeholder="Email" />
+      </div>
+      <div class="form-group">
+        <label for="emailSecondaire">Email Secondaire</label>
+        <input [(ngModel)]="selectedProspect.emailSecondaire" name="emailSecondaire" id="emailSecondaire" placeholder="Email Secondaire" />
+      </div>
+      <div class="form-group">
+        <label for="siteWeb">Site Web</label>
+        <input [(ngModel)]="selectedProspect.siteWeb" name="siteWeb" id="siteWeb" placeholder="Site Web" />
+      </div>
+      <div class="form-group">
+        <label for="rue">Rue</label>
+        <input [(ngModel)]="selectedProspect.rue" name="rue" id="rue" placeholder="Rue" />
+      </div>
+      <div class="form-group">
+        <label for="codePostal">Code Postal</label>
+        <input [(ngModel)]="selectedProspect.codePostal" name="codePostal" id="codePostal" placeholder="Code Postal" />
+      </div>
+      <div class="form-group">
+        <label for="ville">Ville</label>
+        <input [(ngModel)]="selectedProspect.ville" name="ville" id="ville" placeholder="Ville" />
+      </div>
+      <div class="form-group">
+        <label for="pays">Pays</label>
+        <input [(ngModel)]="selectedProspect.pays" name="pays" id="pays" placeholder="Pays" />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea [(ngModel)]="selectedProspect.description" name="description" id="description" placeholder="Description"></textarea>
+      </div>
+      
+      <button class="submit-btn" type="submit">Update</button>
+    </form>
+  </div>
+</div>
